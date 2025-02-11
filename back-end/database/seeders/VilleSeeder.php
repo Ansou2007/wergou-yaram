@@ -16,16 +16,20 @@ class VilleSeeder extends Seeder
         Villes::insert(
             [
                 [
-                    'nom'=>'Dakar'
+                    'nom'=>'Dakar',
+                    'created_at'=>now()
                 ],
                 [
-                    'nom'=>'Thies'
+                    'nom'=>'Thies',
+                    'created_at'=>now()
                 ],
                 [
-                    'nom'=>'Bignona'
+                    'nom'=>'Bignona',
+                    'created_at'=>now()
                 ],
                 [
-                    'nom'=>'Sebikotane'
+                    'nom'=>'Sebikotane',
+                    'created_at'=>now()
                 ]
             ]
                 );
