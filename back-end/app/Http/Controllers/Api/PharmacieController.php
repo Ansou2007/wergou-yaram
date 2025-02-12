@@ -3,32 +3,26 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Pharmacies;
+use App\Models\Villes;
 use Illuminate\Http\Request;
 
 class PharmacieController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+    
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(Request $request)
     {
-        //
+        try {
+            //code...
+        } catch (\Throwable $th) {
+
+            return response()->json([
+                'message' => 'Une erreur est survenue lors de la connexion',
+                'error' => $th->getMessage(),
+            ], 500);
+        }
     }
 
     /**
@@ -61,5 +55,12 @@ class PharmacieController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+
+    public function pharmacies()
+    {
+        $pharmacies = Pharmacies::all();
+        return response()->json($pharmacies);
     }
 }

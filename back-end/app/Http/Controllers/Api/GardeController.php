@@ -3,24 +3,17 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Gardes;
 use Illuminate\Http\Request;
 
 class GardeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function gardes()
     {
-        //
+
+        $gardes = Gardes::all();
+        return response()->json($gardes);
     }
 
     /**

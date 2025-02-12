@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class VilleController extends Controller
 {
-    
+
 
     public function villes()
     {
@@ -18,22 +18,32 @@ class VilleController extends Controller
 
     public function store(Request $request)
     {
-       /*  $request->validate(
-            [
-                'nom'=>'require|unique:villes,nom',
-            ]
-            );
- */
-
-        $ville = new Villes();
-        $ville->nom = $request->nom;
-        $ville->save();
-        return response()->json(
-            [
-                'message' =>"Ville ajoutée",
-                'data'=>$ville
+        try {
+            $request->validate(
+                [
+                    'nom' => 'required|unique:villes,nom',
+                ],
+                [
+                    'nom.required' => "Le nom de la ville est requis.",
+                    'nom.unique' => "Le nom de la ville existe déjà."
                 ]
             );
-    }
 
+            $ville = new Villes();
+            $ville->nom = $request->nom;
+            $ville->save();
+
+            return response()->json(
+                [
+                    'message' => "Ville ajoutée",
+                    'data' => $ville
+                ]
+            );
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'Une erreur est survenue lors de la connexion',
+                'error' => $th->getMessage(),
+            ], 500);
+        }
+    }
 }
