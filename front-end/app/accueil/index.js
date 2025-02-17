@@ -3,14 +3,10 @@ import { View, TextInput, FlatList, Text, StyleSheet, Image, TouchableOpacity } 
 import Icon from 'react-native-vector-icons/Feather';
 
 const data = [
-    { id: '1', title: 'Evenements 1', image: 'https://via.placeholder.com/100' },
-    { id: '2', title: 'Evenements 2', image: 'https://via.placeholder.com/100' },
-    { id: '3', title: 'Evenements 3', image: 'https://via.placeholder.com/100' },
-    { id: '4', title: 'Evenements 4', image: 'https://via.placeholder.com/100' },
-    { id: '5', title: 'Evenements 5', image: 'https://via.placeholder.com/100' },
-    { id: '6', title: 'Evenements 6', image: 'https://via.placeholder.com/100' },
-    { id: '7', title: 'Evenements 7', image: 'https://via.placeholder.com/100' },
-    { id: '8', title: 'Evenements 8', image: 'https://via.placeholder.com/100' },
+    { id: '1', title: '', image: 'https://www.stademariemarvingt.com/uploads/media/news/0001/03/thumb_2913_news_big.png' },
+    { id: '2', title: '', image: 'https://www.hospihub.com/sites/default/files/2024-09/amtc-ci1_0.png' },
+    { id: '3', title: '', image: 'https://www.ac-lyon.fr/sites/ac_lyon/files/2024-11/sante-1920x1080-jpg-55618.jpg' },
+    { id: '4', title: '', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9b0PUrIsHZaQWNi2Tkd33i6aLiv-kLNoKGQ&s' },
 ];
 
 const additionalCards = [
@@ -23,7 +19,10 @@ const additionalCards = [
 export default function SearchWithCards() {
     const [searchText, setSearchText] = useState('');
 
+
     return (
+
+
         <View style={styles.container}>
             {/* En-tête avec photo de l'utilisateur et icône des paramètres */}
             <View style={styles.header}>
@@ -33,6 +32,7 @@ export default function SearchWithCards() {
                 />
 
             </View>
+
 
             {/* Barre de recherche */}
             <View style={styles.searchContainer}>
@@ -75,6 +75,7 @@ export default function SearchWithCards() {
                 ))}
             </View>
         </View>
+
     );
 }
 
@@ -119,17 +120,13 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     card: {
-        backgroundColor: '#38B674',
-        padding: 10,
-        borderRadius: 8,
         alignItems: 'center',
         marginRight: 10,
-        width: 355,
     },
     image: {
-        width: 80,
-        height: 80,
-        borderRadius: 8,
+        width: 357,
+        height: 130,
+
     },
     cardText: {
         marginTop: 5,

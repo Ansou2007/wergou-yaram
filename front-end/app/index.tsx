@@ -27,11 +27,11 @@ const HomeScreen = () => {
         </Text>
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={[styles.loginButtonContainer, { backgroundColor: "#38B674" }]} onPress={() => router.push("/connexion_inscription/LoginScreen")}>
-          <Text style={styles.loginButton}>Se connecter</Text>
+        <TouchableOpacity style={[styles.loginButtonContainer, { backgroundColor: "#38B674" }]} onPress={() => router.push("/accueil")}>
+          <Text style={styles.loginButton}>Je suis particulier</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.loginButtonContainer} onPress={() => router.push("/connexion_inscription/SignupScreen")}>
-          <Text style={styles.signupButton}>S'inscrire</Text>
+          <Text style={styles.signupButton}>Je suis pharmacie</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -75,14 +75,14 @@ const styles = StyleSheet.create({
   loginButton: {
     backgroundColor: "#38B674",
     color: "white",
-    fontSize: 20,
+    fontSize: 18,
     fontFamily: "Semibold",
 
   },
   signupButton: {
 
     color: "#38B674",
-    fontSize: 20,
+    fontSize: 18,
     fontFamily: "Semibold",
 
   },
