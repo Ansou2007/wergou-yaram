@@ -13,8 +13,8 @@ Tableau de Bord
                 <div class="d-flex">
                     <div class="flex-grow-1">
                         <p class="text-truncate font-size-14 mb-2">Ventes</p>
-                        <h4 class="mb-2">{{$vente ?? 0}}</h4>
-                        <a href="{{route('vente')}}"><i class="fas fa-eye"></i>&nbspVoir</a>
+                        <h4 class="mb-2">0</h4>
+                        <a href="#"><i class="fas fa-eye"></i>&nbspVoir</a>
                     </div>
                     <div class="avatar-sm">
                         <span class="avatar-title bg-light text-primary rounded-3">
@@ -32,8 +32,8 @@ Tableau de Bord
                 <div class="d-flex">
                     <div class="flex-grow-1">
                         <p class="text-truncate font-size-14 mb-2">Produits</p>
-                        <h4 class="mb-2">{{$produit ?? 0}}</h4>
-                        <a href="{{route('produit')}}"><i class="fas fa-eye"></i>&nbspVoir</a>
+                        <h4 class="mb-2">0</h4>
+                        <a href="#"><i class="fas fa-eye"></i>&nbspVoir</a>
                     </div>
                     <div class="avatar-sm">
                         <span class="avatar-title bg-light text-success rounded-3">
@@ -51,8 +51,8 @@ Tableau de Bord
                 <div class="d-flex">
                     <div class="flex-grow-1">
                         <p class="text-truncate font-size-14 mb-2">Clients</p>
-                        <h4 class="mb-2">{{$client ?? 0}}</h4>
-                        <a href="{{route('client')}}"><i class="fas fa-eye"></i>&nbspVoir</a>
+                        <h4 class="mb-2">0</h4>
+                        <a href="#"><i class="fas fa-eye"></i>&nbspVoir</a>
                     </div>
                     <div class="avatar-sm">
                         <span class="avatar-title bg-light text-primary rounded-3">
@@ -70,8 +70,8 @@ Tableau de Bord
                 <div class="d-flex">
                     <div class="flex-grow-1">
                         <p class="text-truncate font-size-14 mb-2">Fournisseurs</p>
-                        <h4 class="mb-2">{{$fournisseur ?? 0}}</h4>
-                        <a href="{{route('fournisseur')}}"><i class="fas fa-eye"></i>&nbspVoir</a>
+                        <h4 class="mb-2">0</h4>
+                        <a href="#"><i class="fas fa-eye"></i>&nbspVoir</a>
                     </div>
                     <div class="avatar-sm">
                         <span class="avatar-title bg-light text-success rounded-3">
