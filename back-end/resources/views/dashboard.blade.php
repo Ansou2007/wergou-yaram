@@ -12,7 +12,7 @@ Tableau de Bord
             <div class="card-body">
                 <div class="d-flex">
                     <div class="flex-grow-1">
-                        <p class="text-truncate font-size-14 mb-2">Ventes</p>
+                        <p class="text-truncate font-size-14 mb-2">Nbre Gardes</p>
                         <h4 class="mb-2">0</h4>
                         <a href="#"><i class="fas fa-eye"></i>&nbspVoir</a>
                     </div>
@@ -31,7 +31,7 @@ Tableau de Bord
             <div class="card-body">
                 <div class="d-flex">
                     <div class="flex-grow-1">
-                        <p class="text-truncate font-size-14 mb-2">Produits</p>
+                        <p class="text-truncate font-size-14 mb-2">Nbre Pharmacie</p>
                         <h4 class="mb-2">0</h4>
                         <a href="#"><i class="fas fa-eye"></i>&nbspVoir</a>
                     </div>
@@ -50,7 +50,7 @@ Tableau de Bord
             <div class="card-body">
                 <div class="d-flex">
                     <div class="flex-grow-1">
-                        <p class="text-truncate font-size-14 mb-2">Clients</p>
+                        <p class="text-truncate font-size-14 mb-2">Nbre Notification</p>
                         <h4 class="mb-2">0</h4>
                         <a href="#"><i class="fas fa-eye"></i>&nbspVoir</a>
                     </div>
@@ -64,62 +64,7 @@ Tableau de Bord
         </div>
     </div>
 
-    <div class="col-xl-3 col-md-6">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex">
-                    <div class="flex-grow-1">
-                        <p class="text-truncate font-size-14 mb-2">Fournisseurs</p>
-                        <h4 class="mb-2">0</h4>
-                        <a href="#"><i class="fas fa-eye"></i>&nbspVoir</a>
-                    </div>
-                    <div class="avatar-sm">
-                        <span class="avatar-title bg-light text-success rounded-3">
-                            <i class="mdi mdi-truck font-size-24"></i>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-xl-3 col-md-6">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex">
-                    <div class="flex-grow-1">
-                        <p class="text-truncate font-size-14 mb-2">Date D'expiration</p>
-                        <h4 class="mb-2">0</h4>
-                        <a href="#"><i class="fas fa-eye"></i>&nbspVoir</a>
-                    </div>
-                    <div class="avatar-sm">
-                        <span class="avatar-title bg-light text-warning rounded-3">
-                            <i class="mdi mdi-calendar-alert font-size-24"></i>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-xl-3 col-md-6">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex">
-                    <div class="flex-grow-1">
-                        <p class="text-truncate font-size-14 mb-2">Rupture de Stock</p>
-                        <h4 class="mb-2">0</h4>
-                        <a href="#"><i class="fas fa-eye"></i>&nbspVoir</a>
-                    </div>
-                    <div class="avatar-sm">
-                        <span class="avatar-title bg-light text-danger rounded-3">
-                            <i class="mdi mdi-alert-circle-outline font-size-24"></i>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+   
 
 </div>
 @endsection
