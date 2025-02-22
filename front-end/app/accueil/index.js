@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, TextInput, FlatList, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { Link } from 'expo-router';
 import Icon from 'react-native-vector-icons/Feather';
 
 const data = [
@@ -10,29 +11,24 @@ const data = [
 ];
 
 const additionalCards = [
-    { id: '9', title: 'Pharmacie de garde', image: 'https://via.placeholder.com/100' },
-    { id: '10', title: 'Hopitale la plus proche', image: 'https://via.placeholder.com/100' },
-    { id: '11', title: 'Prix ordonnace', image: 'https://via.placeholder.com/100' },
-    { id: '12', title: 'Demande aide medicale', image: 'https://via.placeholder.com/100' },
+    { id: '9', title: 'Pharmacie de garde', image: 'https://via.placeholder.com/100', route: './pharmacies/test' },
+    { id: '10', title: 'Hôpital le plus proche', image: 'https://via.placeholder.com/100', route: '/hopital' },
+    { id: '11', title: 'Prix ordonnance', image: 'https://via.placeholder.com/100', route: './ordonnace/ordonnace' },
+    { id: '12', title: 'Demande aide médicale', image: 'https://via.placeholder.com/100', route: '/aide-medicale' },
 ];
 
-export default function SearchWithCards() {
+export default function HomeScreen() {
     const [searchText, setSearchText] = useState('');
 
-
     return (
-
-
         <View style={styles.container}>
-            {/* En-tête avec photo de l'utilisateur et icône des paramètres */}
+            {/* En-tête avec photo de l'utilisateur */}
             <View style={styles.header}>
                 <Image
-                    source={{ uri: "https://www.institutmontaigne.org/ressources/images/Portraits/Babacar_Ndiaye.jpg" }} // Remplacez par l'URL de la photo de l'utilisateur
+                    source={{ uri: "https://www.institutmontaigne.org/ressources/images/Portraits/Babacar_Ndiaye.jpg" }}
                     style={styles.userPhoto}
                 />
-
             </View>
-
 
             {/* Barre de recherche */}
             <View style={styles.searchContainer}>
@@ -45,10 +41,8 @@ export default function SearchWithCards() {
                 />
             </View>
 
-            {/* Liste de cards défilantes pour les recettes */}
-            <View>
-                <Text style={styles.Events}>Evenements</Text>
-            </View>
+            {/* Liste des événements */}
+            <Text style={styles.Events}>Événements</Text>
             <FlatList
                 data={data}
                 horizontal
@@ -62,20 +56,17 @@ export default function SearchWithCards() {
                 )}
             />
 
-            {/* Grille de 4 cartes fixes (2x2) */}
-            <View>
-                <Text style={styles.Events}>Catégories</Text>
-            </View>
+            {/* Grille de catégories avec navigation */}
+            <Text style={styles.EvEnts}>Catégories</Text>
             <View style={styles.grid}>
                 {additionalCards.map((item) => (
-                    <View key={item.id} style={styles.additionalCard}>
-                        <Image source={{ uri: item.image }} style={styles.image} />
+                    <Link key={item.id} href={item.route} style={styles.additionalCard}>
+                        <Image source={{ uri: item.image }} style={styles.imageSmall} />
                         <Text style={styles.cardText}>{item.title}</Text>
-                    </View>
+                    </Link>
                 ))}
             </View>
         </View>
-
     );
 }
 
@@ -95,6 +86,13 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: '#38B674',
         fontWeight: "bold",
+        marginBottom: 16,
+    },
+    EvEnts: {
+        fontSize: 18,
+        color: '#38B674',
+        fontWeight: "bold",
+
     },
     userPhoto: {
         width: 40,
@@ -126,13 +124,20 @@ const styles = StyleSheet.create({
     image: {
         width: 357,
         height: 130,
-
+        borderRadius: 8,
+    },
+    imageSmall: {
+        width: 357,
+        height: 120,
+        borderRadius: 8,
     },
     cardText: {
         marginTop: 5,
         fontSize: 14,
         fontWeight: 'bold',
+        textAlign: 'center',
     },
+    
     grid: {
         flexDirection: 'row',
         flexWrap: 'wrap',
@@ -144,7 +149,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFA500',
         padding: 10,
         borderRadius: 8,
-        alignItems: 'center',
         marginBottom: 10,
+   
     },
 });
