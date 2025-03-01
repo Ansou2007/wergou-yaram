@@ -3,7 +3,7 @@ name: Deploiement(WergouYaram)
 on:
   push:
     branches:
-      - backend
+      - main
   #  branches: ["master"]
   #pull_request:
   # branches: ["master"]
