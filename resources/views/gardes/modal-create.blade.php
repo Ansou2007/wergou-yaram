@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Client</h5>
+                <h5 class="modal-title">Garde</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="" method="post" id="Form_garde">
@@ -11,21 +11,30 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-sm-6">
-                        <label for="">Nom Complet</label>
-                        <input type="text" class="form-control"  name="nom_complet" id="nom_complet" autocomplete="off" >
+                        <label for="">Pharmacie</label>
+                        <select name="pharmacie" id="pharmacie" class="form-control form-select">
+                            <option value="">Selectionner...</option>
+                            @foreach ($pharmacies as $pharmacie )
+                                <option value="{{$pharmacie->id}}">{{$pharmacie->nom}}</option>
+                            @endforeach
+                        </select>
                     </div>
                 
                     <div class="form-group col-sm-6">
-                        <label for="">Telephone</label>
-                        <input type="text" class="form-control" id="telephone" name="telephone" autocomplete="off">
+                        <label for="">Date Debut</label>
+                        <input type="date" class="form-control" id="date_debut" name="date_debut" value="{{Carbon\Carbon::now()->toString()}}" >
                     </div>
                     <div class="form-group col-sm-6">
-                        <label for="">Email</label>
-                        <input type="email" class="form-control"  name="email" id="email">
+                        <label for="">Date Fin</label>
+                        <input type="date" class="form-control"  name="date_fin" id="date_fin">
                     </div>
                     <div class="form-group col-sm-6">
-                        <label for="">Adresse</label>
-                        <input type="text" class="form-control"  name="adresse" id="adresse">
+                        <label for="">Type de Garde</label>
+                        <select name="type" id="type"  class="form-control form-select">
+                            <option value="nuit" selected>Nuit</option>
+                            <option value="week-end">Week-End</option>
+                            <option value="ferie">Férie</option>
+                        </select>
                     </div>
                 </div>
             </div>

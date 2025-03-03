@@ -24,7 +24,7 @@ Route::middleware('auth')
 Route::controller(GardeController::class)->group(function(){
     Route::get('/gardes','index')->name('gardes');
     Route::post('/gardes','store')->name('garde.store');
-    Route::get('/garde/{id}/','show')->name('garde.show');
+    Route::get('/garde/{id}/show','show')->name('garde.show');
     Route::put('/garde/update','update')->name('garde.update');
     Route::get('/garde/{id}/delete','destroy')->name('garde.delete');
 });
@@ -32,7 +32,8 @@ Route::controller(GardeController::class)->group(function(){
     Route::controller(PharmacieController::class)->group(function(){
         Route::get('/pharmacies','index')->name('pharmacie');
         Route::post('/pharmacie','store')->name('pharmacie.store');
-        Route::get('/pharmacie/{id}/','show')->name('pharmacie.show');
+        Route::get('/pharmacie/{id}/show','show')->name('pharmacie.show');
+        Route::get('/pharmacie/{id}/edit','edit')->name('pharmacie.edit');
         Route::put('/pharmacie/update','update')->name('pharmacie.update');
         Route::get('/pharmacie/{id}/delete','destroy')->name('pharmacie.delete');
     });

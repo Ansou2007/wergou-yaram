@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('pharmacie_id')->nullable()->constrained('pharmacies')->nullOnDelete();
             $table->date('date_debut')->nullable();
             $table->date('date_fin')->nullable();
-            $table->enum('type',['jour','nuit','week-end','erie'])->default('nuit');
+            $table->enum('type',['nuit','week-end','ferie'])->default('nuit');
             $table->timestamps();
         });
     }

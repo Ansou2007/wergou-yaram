@@ -3,7 +3,7 @@
     Pharmacies
 @endsection
 @section('titre2')
-Pharmacies
+    Pharmacies
 @endsection
 @section('contenu')
     <div class="row">
@@ -17,28 +17,30 @@ Pharmacies
                     <h4 class="card-title">Toutes les Pharmacies</h4>
                     <x-table>
                         {{-- Header --}}
-                        <x-table-header :colonnes="['N°', 'Pharmacies', 'Ville', 'telephone', 'Localisation', 'Actions']"/>
-                            @foreach ($data as $garde)
-                                <tr>
-                                    <td> {{ $loop->iteration }} </td>
-                                    <td> {{ $garde->nom }} </td>
-                                    <td> {{ $garde->villes->nom }} </td>
-                                    <td> {{ $garde->telephone }} </td>
-                                    <td> <i class="fa fa-open-eyes"></i></td>
-                                    <td>
+                        <x-table-header :colonnes="['N°', 'Pharmacies', 'Ville', 'telephone', 'Localisation', 'Actions']" />
+                        @foreach ($data as $garde)
+                            <tr>
+                                <td> {{ $loop->iteration }} </td>
+                                <td> {{ $garde->nom }} </td>
+                                <td> {{ $garde->villes->nom }} </td>
+                                <td> {{ $garde->telephone }} </td>
+                                <td class="text-center"><button class="btn btn-info btn-rounded"><i
+                                            class="fa fa-map"></i></button></td>
+                                <td>
 
-                                        <a href="javascript:void(0)" class="btn btn-info sm Btn_update"
-                                            title="Modifier pharmacie" data-url="{{ route('pharmacie.show', $garde->id) }}">
-                                            <i class="fas fa-edit"></i> </a>
+                                    <a href="javascript:void(0)" class="btn btn-info sm Btn_update"
+                                        title="Modifier pharmacie" data-url="{{ route('pharmacie.edit', $garde->id) }}">
+                                        <i class="fas fa-edit"></i> </a>
 
-                                        <button data-url = "{{ route('pharmacie.delete', $garde->id) }}"
-                                            class="btn_delete btn btn-danger sm" title="Supprimer cette pharmacie" id="delete">
-                                            <i class="fas fa-trash"></i> </button>
+                                    <button data-url = "{{ route('pharmacie.delete', $garde->id) }}"
+                                        class="btn_delete btn btn-danger sm" title="Supprimer cette pharmacie"
+                                        id="delete">
+                                        <i class="fas fa-trash"></i> </button>
 
 
-                                    </td>
-                                </tr>
-                            @endforeach
+                                </td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </x-table>
                 </div>
@@ -52,7 +54,7 @@ Pharmacies
     <script>
         $(document).ready(function() {
 
-           
+
 
             // Delete
             $('.btn_delete').on('click', function(e) {
@@ -149,11 +151,12 @@ Pharmacies
                     method: "GET",
                     success: function(response) {
                         //console.log(response)
-                        $('.client_id').val(response.id);
-                        $('.nom_complet').val(response.nom_complet);
+                        $('.pharmacie_id').val(response.id);
+                        $('.nom').val(response.nom);
                         $('.telephone').val(response.telephone);
-                        $('.email').val(response.email);
                         $('.adresse').val(response.adresse);
+                        $('.longitude').val(response.longitude);
+                        $('.latitude').val(response.latitude);
                         let modal = new bootstrap.Modal(document.getElementById(
                             'ModalPharmacieEdition'))
                         modal.show();
@@ -229,6 +232,10 @@ Pharmacies
                 }
             });
 
+           /*  $('#telephone').inputmask('99-999-99-99', {
+                clearIncomplete: true,
+                placeholder: '_',
+            }); */
         })
     </script>
 @endsection

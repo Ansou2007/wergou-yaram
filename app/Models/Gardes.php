@@ -12,4 +12,12 @@ class Gardes extends Model
 {
     /** @use HasFactory<\Database\Factories\GardesFactory> */
     use HasFactory;
+
+
+    public function pharmacies()
+    {
+        return $this->belongsTo(Pharmacies::class,'pharmacie_id');
+
+    }
+    
 }

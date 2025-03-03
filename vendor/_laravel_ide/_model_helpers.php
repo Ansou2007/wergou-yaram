@@ -274,6 +274,7 @@ namespace App\Models {
      * @property string|null $date_debut
      * @property int|null $pharmacie_id
      * @property int $id
+     * @property-read \App\Models\Pharmacies $pharmacies
      * @method static \Illuminate\Database\Eloquent\Builder|Gardes whereId($value)
      * @method static \Illuminate\Database\Eloquent\Builder|Gardes wherePharmacieId($value)
      * @method static \Illuminate\Database\Eloquent\Builder|Gardes whereDateDebut($value)

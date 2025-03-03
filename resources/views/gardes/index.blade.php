@@ -21,10 +21,10 @@
                             @foreach ($data as $garde)
                                 <tr>
                                     <td> {{ $loop->iteration }} </td>
-                                    <td> {{ $garde->nom_complet }} </td>
-                                    <td> {{ $garde->telephone }} </td>
-                                    <td> {{ $garde->email }} </td>
-                                    <td> {{ $garde->adresse }} </td>
+                                    <td> {{ $garde->pharmacies->nom }} </td>
+                                    <td> {{ $garde->pharmacies->villes->nom }} </td>
+                                    <td> {{ $garde->date_debut }} </td>
+                                    <td> {{ $garde->date_fin }} </td>
                                     <td>
 
                                         <a href="javascript:void(0)" class="btn btn-info sm Btn_update"
@@ -89,25 +89,33 @@
             // Submit
             $('#Form_garde').on('submit', function(e) {
                 e.preventDefault()
-                let nom_complet = $('#nom_complet').val();
-                let telephone = $('#telephone').val();
-                let email = $('#email').val();
-                if (nom_complet == '') {
-                    $.notify('Nom du client obligatoire', {
+                let pharmacie = $('#pharmacie').val();
+                let date_debut = $('#date_debut').val();
+                let date_fin = $('#date_fin').val();
+                let type = $('#type').val();
+                if (pharmacie == '') {
+                    $.notify('Pharmacie obligatoire', {
                         globalPosition: 'top right',
                         className: 'error'
                     })
                     return false;
                 }
-                if (telephone == '') {
-                    $.notify('Télephone Obligatoire', {
+                if (date_debut == '') {
+                    $.notify('Date debut Obligatoire', {
                         globalPosition: 'top right',
                         className: 'error'
                     })
                     return false;
                 }
-                if (email == '') {
-                    $.notify('Email Obligatoire', {
+                if (date_fin == '') {
+                    $.notify('Date fin Obligatoire', {
+                        globalPosition: 'top right',
+                        className: 'error'
+                    })
+                    return false;
+                }
+                if (type == '') {
+                    $.notify('Type Obligatoire', {
                         globalPosition: 'top right',
                         className: 'error'
                     })
@@ -121,7 +129,7 @@
                     data: data,
                     success: function(data) {
                         Swal.fire({
-                            title: 'Client',
+                            title: 'Gardes',
                             icon: 'success',
                             text: data.message
                         }).then(() => {
@@ -131,7 +139,7 @@
                     error: function(xhr) {
 
                         Swal.fire({
-                            title: 'Client',
+                            title: 'Garde',
                             icon: 'error',
                             text: 'Erreur: ' + xhr.responseJSON['message']
                         })

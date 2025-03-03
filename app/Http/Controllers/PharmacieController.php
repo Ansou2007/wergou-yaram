@@ -7,6 +7,8 @@ use App\Models\Villes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use function Pest\Laravel\json;
+
 class PharmacieController extends Controller
 {
     /**
@@ -79,7 +81,8 @@ class PharmacieController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = Pharmacies::find($id);
+        return response()->json($data);
     }
 
     /**
@@ -95,6 +98,20 @@ class PharmacieController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $data = Pharmacies::find($id);
+        $data->delete();
+        return back();
+
+    }
+
+    // Carte
+    public function map()
+    {
+
+    }
+
+    public function maps()
+    {
+
     }
 }
