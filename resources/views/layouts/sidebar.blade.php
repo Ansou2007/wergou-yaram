@@ -33,7 +33,7 @@
                         <span>Mes gardes</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#">Liste Garde</a></li>
+                        <li><a href="{{route('gardes')}}">Liste Garde</a></li>
                         
                     </ul>
                 </li>
@@ -45,7 +45,7 @@
                         <span>Pharmacies</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#">Liste Pharmacies</a></li>
+                        <li><a href="{{route('pharmacie')}}">Liste Pharmacies</a></li>
                         
                     </ul>
                 </li>

@@ -963,6 +963,8 @@ class ApiResource extends Metadata
         ?string $policy = null,
         array|string|null $middleware = null,
         array|Parameters|null $parameters = null,
+        protected ?bool $strictQueryParameterValidation = null,
+        protected ?bool $hideHydraOperation = null,
         protected array $extraProperties = [],
     ) {
         parent::__construct(
@@ -1007,6 +1009,8 @@ class ApiResource extends Metadata
             rules: $rules,
             policy: $policy,
             middleware: $middleware,
+            strictQueryParameterValidation: $strictQueryParameterValidation,
+            hideHydraOperation: $hideHydraOperation,
             extraProperties: $extraProperties
         );
 
@@ -1023,7 +1027,7 @@ class ApiResource extends Metadata
         return $this->operations;
     }
 
-    public function withOperations(Operations $operations): self
+    public function withOperations(Operations $operations): static
     {
         $self = clone $this;
         $self->operations = $operations;
@@ -1037,7 +1041,7 @@ class ApiResource extends Metadata
         return $this->uriTemplate;
     }
 
-    public function withUriTemplate(string $uriTemplate): self
+    public function withUriTemplate(string $uriTemplate): static
     {
         $self = clone $this;
         $self->uriTemplate = $uriTemplate;
@@ -1053,7 +1057,7 @@ class ApiResource extends Metadata
     /**
      * @param string[]|string $types
      */
-    public function withTypes(array|string $types): self
+    public function withTypes(array|string $types): static
     {
         $self = clone $this;
         $self->types = (array) $types;
@@ -1069,7 +1073,7 @@ class ApiResource extends Metadata
         return $this->formats;
     }
 
-    public function withFormats(mixed $formats): self
+    public function withFormats(mixed $formats): static
     {
         $self = clone $this;
         $self->formats = $formats;
@@ -1088,7 +1092,7 @@ class ApiResource extends Metadata
     /**
      * @param mixed|null $inputFormats
      */
-    public function withInputFormats($inputFormats): self
+    public function withInputFormats($inputFormats): static
     {
         $self = clone $this;
         $self->inputFormats = $inputFormats;
@@ -1107,7 +1111,7 @@ class ApiResource extends Metadata
     /**
      * @param mixed|null $outputFormats
      */
-    public function withOutputFormats($outputFormats): self
+    public function withOutputFormats($outputFormats): static
     {
         $self = clone $this;
         $self->outputFormats = $outputFormats;
@@ -1126,7 +1130,7 @@ class ApiResource extends Metadata
     /**
      * @param array<string, Link>|array<string, array>|string[]|string|null $uriVariables
      */
-    public function withUriVariables($uriVariables): self
+    public function withUriVariables($uriVariables): static
     {
         $self = clone $this;
         $self->uriVariables = $uriVariables;
@@ -1139,7 +1143,7 @@ class ApiResource extends Metadata
         return $this->routePrefix;
     }
 
-    public function withRoutePrefix(string $routePrefix): self
+    public function withRoutePrefix(string $routePrefix): static
     {
         $self = clone $this;
         $self->routePrefix = $routePrefix;
@@ -1152,7 +1156,7 @@ class ApiResource extends Metadata
         return $this->defaults;
     }
 
-    public function withDefaults(array $defaults): self
+    public function withDefaults(array $defaults): static
     {
         $self = clone $this;
         $self->defaults = $defaults;
@@ -1165,7 +1169,7 @@ class ApiResource extends Metadata
         return $this->requirements;
     }
 
-    public function withRequirements(array $requirements): self
+    public function withRequirements(array $requirements): static
     {
         $self = clone $this;
         $self->requirements = $requirements;
@@ -1178,7 +1182,7 @@ class ApiResource extends Metadata
         return $this->options;
     }
 
-    public function withOptions(array $options): self
+    public function withOptions(array $options): static
     {
         $self = clone $this;
         $self->options = $options;
@@ -1191,7 +1195,7 @@ class ApiResource extends Metadata
         return $this->stateless;
     }
 
-    public function withStateless(bool $stateless): self
+    public function withStateless(bool $stateless): static
     {
         $self = clone $this;
         $self->stateless = $stateless;
@@ -1204,7 +1208,7 @@ class ApiResource extends Metadata
         return $this->sunset;
     }
 
-    public function withSunset(string $sunset): self
+    public function withSunset(string $sunset): static
     {
         $self = clone $this;
         $self->sunset = $sunset;
@@ -1217,7 +1221,7 @@ class ApiResource extends Metadata
         return $this->acceptPatch;
     }
 
-    public function withAcceptPatch(string $acceptPatch): self
+    public function withAcceptPatch(string $acceptPatch): static
     {
         $self = clone $this;
         $self->acceptPatch = $acceptPatch;
@@ -1230,7 +1234,10 @@ class ApiResource extends Metadata
         return $this->status;
     }
 
-    public function withStatus($status): self
+    /**
+     * @param int $status
+     */
+    public function withStatus($status): static
     {
         $self = clone $this;
         $self->status = $status;
@@ -1243,7 +1250,7 @@ class ApiResource extends Metadata
         return $this->host;
     }
 
-    public function withHost(string $host): self
+    public function withHost(string $host): static
     {
         $self = clone $this;
         $self->host = $host;
@@ -1256,7 +1263,7 @@ class ApiResource extends Metadata
         return $this->schemes;
     }
 
-    public function withSchemes(array $schemes): self
+    public function withSchemes(array $schemes): static
     {
         $self = clone $this;
         $self->schemes = $schemes;
@@ -1269,7 +1276,7 @@ class ApiResource extends Metadata
         return $this->condition;
     }
 
-    public function withCondition(string $condition): self
+    public function withCondition(string $condition): static
     {
         $self = clone $this;
         $self->condition = $condition;
@@ -1282,7 +1289,7 @@ class ApiResource extends Metadata
         return $this->controller;
     }
 
-    public function withController(string $controller): self
+    public function withController(string $controller): static
     {
         $self = clone $this;
         $self->controller = $controller;
@@ -1295,7 +1302,7 @@ class ApiResource extends Metadata
         return $this->headers;
     }
 
-    public function withHeaders(array $headers): self
+    public function withHeaders(array $headers): static
     {
         $self = clone $this;
         $self->headers = $headers;
@@ -1308,7 +1315,7 @@ class ApiResource extends Metadata
         return $this->cacheHeaders;
     }
 
-    public function withCacheHeaders(array $cacheHeaders): self
+    public function withCacheHeaders(array $cacheHeaders): static
     {
         $self = clone $this;
         $self->cacheHeaders = $cacheHeaders;
@@ -1324,7 +1331,7 @@ class ApiResource extends Metadata
         return $this->hydraContext;
     }
 
-    public function withHydraContext(array $hydraContext): self
+    public function withHydraContext(array $hydraContext): static
     {
         $self = clone $this;
         $self->hydraContext = $hydraContext;
@@ -1337,7 +1344,7 @@ class ApiResource extends Metadata
         return $this->openapi;
     }
 
-    public function withOpenapi(bool|OpenApiOperation $openapi): self
+    public function withOpenapi(bool|OpenApiOperation $openapi): static
     {
         $self = clone $this;
         $self->openapi = $openapi;
@@ -1350,7 +1357,7 @@ class ApiResource extends Metadata
         return $this->paginationViaCursor;
     }
 
-    public function withPaginationViaCursor(array $paginationViaCursor): self
+    public function withPaginationViaCursor(array $paginationViaCursor): static
     {
         $self = clone $this;
         $self->paginationViaCursor = $paginationViaCursor;
@@ -1363,7 +1370,7 @@ class ApiResource extends Metadata
         return $this->exceptionToStatus;
     }
 
-    public function withExceptionToStatus(array $exceptionToStatus): self
+    public function withExceptionToStatus(array $exceptionToStatus): static
     {
         $self = clone $this;
         $self->exceptionToStatus = $exceptionToStatus;
@@ -1379,7 +1386,7 @@ class ApiResource extends Metadata
         return $this->graphQlOperations;
     }
 
-    public function withGraphQlOperations(array $graphQlOperations): self
+    public function withGraphQlOperations(array $graphQlOperations): static
     {
         $self = clone $this;
         $self->graphQlOperations = $graphQlOperations;
@@ -1395,7 +1402,7 @@ class ApiResource extends Metadata
     /**
      * @param Link[] $links
      */
-    public function withLinks(array $links): self
+    public function withLinks(array $links): static
     {
         $self = clone $this;
         $self->links = $links;

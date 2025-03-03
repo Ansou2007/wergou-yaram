@@ -11,4 +11,9 @@ class Pharmacies extends Model
 {
     /** @use HasFactory<\Database\Factories\PharmaciesFactory> */
     use HasFactory;
+
+    public function villes()
+    {
+        return $this->belongsTo(Villes::class,'ville_id');
+    }
 }

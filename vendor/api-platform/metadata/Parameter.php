@@ -44,7 +44,7 @@ abstract class Parameter
         protected string|\Stringable|null $security = null,
         protected ?string $securityMessage = null,
         protected ?array $extraProperties = [],
-        protected ?array $filterContext = null,
+        protected array|string|null $filterContext = null,
     ) {
     }
 
@@ -135,7 +135,7 @@ abstract class Parameter
         return $this->extraProperties;
     }
 
-    public function getFilterContext(): ?array
+    public function getFilterContext(): array|string|null
     {
         return $this->filterContext;
     }
@@ -200,6 +200,14 @@ abstract class Parameter
         return $self;
     }
 
+    public function withFilterContext(array|string $filterContext): static
+    {
+        $self = clone $this;
+        $self->filterContext = $filterContext;
+
+        return $self;
+    }
+
     public function withProperty(string $property): static
     {
         $self = clone $this;
@@ -240,7 +248,7 @@ abstract class Parameter
         return $self;
     }
 
-    public function withSecurity(string|\Stringable|null $security): self
+    public function withSecurity(string|\Stringable|null $security): static
     {
         $self = clone $this;
         $self->security = $security;
@@ -248,7 +256,7 @@ abstract class Parameter
         return $self;
     }
 
-    public function withSecurityMessage(?string $securityMessage): self
+    public function withSecurityMessage(?string $securityMessage): static
     {
         $self = clone $this;
         $self->securityMessage = $securityMessage;

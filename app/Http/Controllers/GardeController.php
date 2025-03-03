@@ -13,7 +13,7 @@ class GardeController extends Controller
     public function index()
     {
         $data = Gardes::all();
-        return view('gardes.index');
+        return view('gardes.index',compact('data'));
     }
 
     /**
