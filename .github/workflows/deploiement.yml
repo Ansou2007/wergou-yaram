@@ -3,7 +3,7 @@ name: Deploiement(wergouyaram.ctu.sn)
 on:
   push:
     branches:
-      - main
+      - backend
   #  branches: ["master"]
   pull_request:
    branches: ["main"]
