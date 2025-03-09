@@ -88,10 +88,48 @@ class PharmacieController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        // Vérifier si l'ID de la pharmacie est fourni et existe
+        $data = Pharmacies::find($request->pharmacie_id);
+        if (!$data) {
+            return response()->json(['error' => "Pharmacie non trouvée"], 404);
+        }
+    
+        // Validation des données
+        $request->validate(
+            [
+                'nom' => 'required',
+                'telephone' => 'required|unique:pharmacies,telephone,' . $request->pharmacie_id,
+                'longitude' => 'required|unique:pharmacies,longitude,' . $request->pharmacie_id,
+                'latitude' => 'required|unique:pharmacies,latitude,' . $request->pharmacie_id,
+                'ville' => 'required',
+            ],
+            [
+                'nom.required' => 'Le nom de la pharmacie est obligatoire',
+                'telephone.required' => 'Le numéro de téléphone est obligatoire',
+                'telephone.unique' => 'Le numéro de téléphone existe déjà',
+                'ville.required' => 'La ville est obligatoire',
+                'longitude.required' => 'La géolocalisation est obligatoire',
+                'latitude.required' => 'La géolocalisation est obligatoire',
+                'latitude.unique' => 'Les coordonnées existent déjà',
+                'longitude.unique' => 'Les coordonnées existent déjà',
+            ]
+        );
+    
+        // Mise à jour des données
+        $data->nom = $request->nom;
+        $data->telephone = $request->telephone;
+        $data->adresse = $request->adresse;
+        $data->ville_id = $request->ville;
+        $data->longitude = $request->longitude;
+        $data->latitude = $request->latitude;
+        $data->user_id = Auth::id();
+        $data->save();
+    
+        return response()->json(['message' => "Pharmacie modifiée avec succès"]);
     }
+    
 
     /**
      * Remove the specified resource from storage.

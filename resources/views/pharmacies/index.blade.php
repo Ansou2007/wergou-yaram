@@ -157,6 +157,7 @@
                         $('.adresse').val(response.adresse);
                         $('.longitude').val(response.longitude);
                         $('.latitude').val(response.latitude);
+                        $('.ville').val(response.ville_id);
                         let modal = new bootstrap.Modal(document.getElementById(
                             'ModalPharmacieEdition'))
                         modal.show();
@@ -170,12 +171,16 @@
             // Submit update
             $(document).on('submit', '#Form_pharmacie_edition', function(e) {
                 e.preventDefault();
-                let client = $('.client_id').val();
-                let nom_complet = $('.nom_complet').val();
+                let pharmacie_id = $('.pharmacie_id').val();
+                let nom = $('.nom').val();
+                let ville = $('.ville').val();
                 let telephone = $('.telephone').val();
-                let email = $('.email').val();
-                if (nom_complet == '') {
-                    $.notify('Nom du client obligatoire', {
+                let adresse = $('.adresse').val();
+                let longitude = $('.longitude').val();
+                let latitude = $('.latitude').val();
+
+                if (nom == '') {
+                    $.notify('Nom Pharmacie obligatoire', {
                         globalPosition: 'top right',
                         className: 'error'
                     })
@@ -188,8 +193,8 @@
                     })
                     return false;
                 }
-                if (email == '') {
-                    $.notify('Email Obligatoire', {
+                if (ville == '') {
+                    $.notify('Ville Obligatoire', {
                         globalPosition: 'top right',
                         className: 'error'
                     })
@@ -198,12 +203,12 @@
                 let data = $(this).serialize();
 
                 $.ajax({
-                    url: "{{ route('garde.update') }}",
+                    url: "{{ route('pharmacie.update') }}",
                     method: 'PUT',
                     data: data,
                     success: function(data) {
                         Swal.fire({
-                            title: 'Gardes',
+                            title: 'Pharmacie',
                             icon: 'success',
                             text: data.message
                         }).then(() => {
@@ -213,7 +218,7 @@
                     error: function(xhr) {
 
                         Swal.fire({
-                            title: 'Gardes',
+                            title: 'Pharmacie',
                             icon: 'error',
                             text: 'Erreur: ' + xhr.responseJSON['message']
                         })
