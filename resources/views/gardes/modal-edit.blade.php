@@ -14,7 +14,7 @@
                     <div class="form-group col-sm-6">
                         <label for="">Pharmacie</label>
                         <select name="pharmacie" id="pharmacie" class="pharmacie form-control form-select">
-                            <option value="">Selectionner...</option>
+                            <option value="">Selectionner....</option>
                             @foreach ($pharmacies as $pharmacie )
                                 <option value="{{$pharmacie->id}}">{{$pharmacie->nom}}</option>
                             @endforeach
