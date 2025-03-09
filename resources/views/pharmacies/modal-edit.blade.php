@@ -11,7 +11,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="form-group col-sm-6">
-                            <input type="text" class="pharmacie_id" name="pharmacie_id" id="pharmacie_id">
+                            <input type="hidden" class="pharmacie_id" name="pharmacie_id" id="pharmacie_id">
                             <label for="">Nom Pharmacie</label>
                             <input type="text" class="form-control nom" name="nom" id="nom" autocomplete="off">
                         </div>
