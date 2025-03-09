@@ -50,15 +50,15 @@ Route::controller(UserController::class)->group(function () {
 
 //=======Pharmacies
 Route::controller(PharmacieController::class)->group(function () {
-    Route::get('/pharmacies', 'pharmacies');
-    Route::get('/pharmacie/{id}', 'show');
+    Route::get('/v1/pharmacies', 'pharmacies');
+    Route::get('/v1/pharmacie/{id}', 'show');
 });
 //======Gardes
 Route::controller(GardeController::class)->group(function () {
-    Route::get('/gardes', 'gardes');
-    Route::get('/garde/{id}/', 'show');
+    Route::get('/v1/gardes', 'gardes');
+    Route::get('/v1/garde/{id}/', 'show');
 });
 //======  Villle
 Route::controller(VilleController::class)->group(function () {
-    Route::get('/villes', 'villes');
+    Route::get('/v1/villes', 'villes');
 });
