@@ -17,28 +17,28 @@
                     <h4 class="card-title">Toutes les gardes</h4>
                     <x-table>
                         {{-- Header --}}
-                        <x-table-header :colonnes="['N°', 'Pharmacies', 'Ville', 'Date Debut', 'Date Fin', 'Actions']"/>
-                            @foreach ($data as $garde)
-                                <tr>
-                                    <td> {{ $loop->iteration }} </td>
-                                    <td> {{ $garde->pharmacies->nom }} </td>
-                                    <td> {{ $garde->pharmacies->villes->nom }} </td>
-                                    <td> {{ $garde->date_debut }} </td>
-                                    <td> {{ $garde->date_fin }} </td>
-                                    <td>
+                        <x-table-header :colonnes="['N°', 'Pharmacies', 'Ville', 'Date Debut', 'Date Fin', 'Actions']" />
+                        @foreach ($data as $garde)
+                            <tr>
+                                <td> {{ $loop->iteration }} </td>
+                                <td> {{ $garde->pharmacies->nom }} </td>
+                                <td> {{ $garde->pharmacies->villes->nom }} </td>
+                                <td> {{ $garde->date_debut }} </td>
+                                <td> {{ $garde->date_fin }} </td>
+                                <td>
 
-                                        <a href="javascript:void(0)" class="btn btn-info sm Btn_update"
-                                            title="Modifier ce client" data-url="{{ route('garde.show', $garde->id) }}">
-                                            <i class="fas fa-edit"></i> </a>
+                                    <a href="javascript:void(0)" class="btn btn-info sm Btn_update" title="Modifier ce client"
+                                        data-url="{{ route('garde.edit', $garde->id) }}">
+                                        <i class="fas fa-edit"></i> </a>
 
-                                        <button data-url = "{{ route('garde.delete', $garde->id) }}"
-                                            class="btn_delete btn btn-danger sm" title="Supprimer cette garde" id="delete">
-                                            <i class="fas fa-trash"></i> </button>
+                                    <button data-url = "{{ route('garde.delete', $garde->id) }}"
+                                        class="btn_delete btn btn-danger sm" title="Supprimer cette garde" id="delete">
+                                        <i class="fas fa-trash"></i> </button>
 
 
-                                    </td>
-                                </tr>
-                            @endforeach
+                                </td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </x-table>
                 </div>
@@ -52,7 +52,7 @@
     <script>
         $(document).ready(function() {
 
-           
+
 
             // Delete
             $('.btn_delete').on('click', function(e) {
@@ -90,8 +90,8 @@
             $('#Form_garde').on('submit', function(e) {
                 e.preventDefault()
                 let pharmacie = $('#pharmacie').val();
-                let date_debut = $('#date_debut').val();
-                let date_fin = $('#date_fin').val();
+                let date_debut = new Date($('#date_debut').val());
+                let date_fin = new Date($('#date_fin').val());
                 let type = $('#type').val();
                 if (pharmacie == '') {
                     $.notify('Pharmacie obligatoire', {
@@ -100,18 +100,27 @@
                     })
                     return false;
                 }
-                if (date_debut == '') {
-                    $.notify('Date debut Obligatoire', {
+                if (!date_debut || isNaN(date_debut)) {
+                    $.notify('Date début obligatoire', {
                         globalPosition: 'top right',
                         className: 'error'
-                    })
+                    });
                     return false;
                 }
-                if (date_fin == '') {
-                    $.notify('Date fin Obligatoire', {
+
+                if (!date_fin || isNaN(date_fin)) {
+                    $.notify('Date fin obligatoire', {
                         globalPosition: 'top right',
                         className: 'error'
-                    })
+                    });
+                    return false;
+                }
+
+                if (date_fin <= date_debut) {
+                    $.notify('La date de fin doit être postérieure à la date de début', {
+                        globalPosition: 'top right',
+                        className: 'error'
+                    });
                     return false;
                 }
                 if (type == '') {
@@ -155,13 +164,12 @@
                     method: "GET",
                     success: function(response) {
                         //console.log(response)
-                        $('.client_id').val(response.id);
-                        $('.nom_complet').val(response.nom_complet);
-                        $('.telephone').val(response.telephone);
-                        $('.email').val(response.email);
-                        $('.adresse').val(response.adresse);
+                        $('.garde_id').val(response.id);
+                        $('.pharmacie').val(response.pharmacie_id);
+                        $('.date_fin').val(response.date_fin);
+                        $('.date_debut').val(response.date_debut);
                         let modal = new bootstrap.Modal(document.getElementById(
-                            'ModalClientEdition'))
+                            'ModalGardeEdition'))
                         modal.show();
                     },
                     error: function(xhr) {
@@ -171,31 +179,40 @@
 
             })
             // Submit update
-            $(document).on('submit', '#Form_client_edition', function(e) {
+            $(document).on('submit', '#Form_garde_edition', function(e) {
                 e.preventDefault();
-                let client = $('.client_id').val();
-                let nom_complet = $('.nom_complet').val();
-                let telephone = $('.telephone').val();
-                let email = $('.email').val();
-                if (nom_complet == '') {
-                    $.notify('Nom du client obligatoire', {
+                let garde_id = $('.garde_id').val();
+                let pharmacie = $('.pharmacie').val();
+                let date_debut = new Date($('.date_debut').val());
+                let date_fin = new Date($('.date_fin').val());
+                if (pharmacie == '') {
+                    $.notify('Pharmacie obligatoire', {
                         globalPosition: 'top right',
                         className: 'error'
                     })
                     return false;
                 }
-                if (telephone == '') {
-                    $.notify('Télephone Obligatoire', {
+                if (!date_debut || isNaN(date_debut)) {
+                    $.notify('Date début obligatoire', {
                         globalPosition: 'top right',
                         className: 'error'
-                    })
+                    });
                     return false;
                 }
-                if (email == '') {
-                    $.notify('Email Obligatoire', {
+
+                if (!date_fin || isNaN(date_fin)) {
+                    $.notify('Date fin obligatoire', {
                         globalPosition: 'top right',
                         className: 'error'
-                    })
+                    });
+                    return false;
+                }
+
+                if (date_fin <= date_debut) {
+                    $.notify('La date de fin doit être postérieure à la date de début', {
+                        globalPosition: 'top right',
+                        className: 'error'
+                    });
                     return false;
                 }
                 let data = $(this).serialize();

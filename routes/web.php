@@ -24,7 +24,7 @@ Route::middleware('auth')
 Route::controller(GardeController::class)->group(function(){
     Route::get('/gardes','index')->name('gardes');
     Route::post('/gardes','store')->name('garde.store');
-    Route::get('/garde/{id}/show','show')->name('garde.show');
+    Route::get('/garde/{id}/edit','edit')->name('garde.edit');
     Route::put('/garde/update','update')->name('garde.update');
     Route::get('/garde/{id}/delete','destroy')->name('garde.delete');
 });
