@@ -12,7 +12,7 @@ class GardeController extends Controller
     public function gardes()
     {
 
-        $gardes = Gardes::all();
+        $gardes = Gardes::with('pharmacies')->get();
         return response()->json($gardes);
     }
 
