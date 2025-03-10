@@ -10,11 +10,24 @@ class VilleController extends Controller
 {
 
 
+    
+    // Liste Ville
     public function villes()
     {
         $data = Villes::all();
         return response()->json($data);
     }
+    // Recuperer une Ville
+    public function ville($id)
+    {
+        try {
+            $data = Villes::findOrFail($id);
+            return response()->json($data, 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Ville non trouvée'], 404);
+        }
+    }
+    
 
     public function store(Request $request)
     {

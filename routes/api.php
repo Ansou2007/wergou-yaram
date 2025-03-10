@@ -58,7 +58,8 @@ Route::controller(GardeController::class)->group(function () {
     Route::get('/v1/gardes', 'gardes');
     Route::get('/v1/garde/{id}/', 'show');
 });
+
 //======  Villle
 Route::controller(VilleController::class)->group(function () {
     Route::get('/v1/villes', 'villes');
-});
+    Route::get('/v1/ville/{id}', 'ville');});
