@@ -2,7 +2,12 @@
 
 use App\Http\Controllers\GardeController;
 use App\Http\Controllers\PharmacieController;
+use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\utilisateur;
+use App\Http\Controllers\UtilisateurController;
+use App\Models\Gardes;
+use App\Models\Pharmacies;
 use Illuminate\Support\Facades\Route;
 
 
@@ -13,7 +18,9 @@ Route::get('/', function () {
 
 // dashboard
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $pharmacies = Pharmacies::count();
+    $gardes = Gardes::count();
+    return view('dashboard',compact('pharmacies','gardes'));
 })->middleware(['auth'])->name('dashboard');
 
 // Gardes
@@ -36,6 +43,23 @@ Route::controller(GardeController::class)->group(function(){
         Route::get('/pharmacie/{id}/edit','edit')->name('pharmacie.edit');
         Route::put('/pharmacie/update','update')->name('pharmacie.update');
         Route::get('/pharmacie/{id}/delete','destroy')->name('pharmacie.delete');
+        Route::get('/pharmacie/check','check')->name('pharmacie.check');
+    });
+
+    // Utilisateur
+   Route::controller(UtilisateurController::class)->group(function(){
+    Route::get('utilisateurs','index')->name('utilisateur');
+    Route::post('utilisateur/store','store')->name('utilisateur.store');
+    Route::get('utilisateur/{id}/edit','edit')->name('utilisateur.edit');
+    Route::put('utilisateur/update','update')->name('utilisateur.update');
+    Route::get('utilisateur/{}/delete','destroy')->name('utilisateur.delete');
+   });
+
+     Route::controller(ProfilController::class)->group(function () {
+        Route::get('profil', 'edit')->name('profil');
+        Route::put('profil/edit', 'update')->name('profil.update');
+        Route::get('password', 'change_password')->name('password.edit');
+        Route::put('password', 'update_password')->name('password.update');
     });
 
 });

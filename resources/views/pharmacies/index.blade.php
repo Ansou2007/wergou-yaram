@@ -18,24 +18,28 @@
                     <x-table>
                         {{-- Header --}}
                         <x-table-header :colonnes="['N°', 'Pharmacies', 'Ville', 'telephone', 'Localisation', 'Actions']" />
-                        @foreach ($data as $garde)
+                        @foreach ($data as $pharmacie)
                             <tr>
                                 <td> {{ $loop->iteration }} </td>
-                                <td> {{ $garde->nom }} </td>
-                                <td> {{ $garde->villes->nom }} </td>
-                                <td> {{ $garde->telephone }} </td>
+                                <td> {{ $pharmacie->nom }} </td>
+                                <td> {{ $pharmacie->villes->nom }} </td>
+                                <td> {{ $pharmacie->telephone }} </td>
                                 <td class="text-center"><button class="btn btn-info btn-rounded"><i
                                             class="fa fa-map"></i></button></td>
                                 <td>
 
-                                    <a href="javascript:void(0)" class="btn btn-info sm Btn_update"
-                                        title="Modifier pharmacie" data-url="{{ route('pharmacie.edit', $garde->id) }}">
+                                    @if ($pharmacie->id == Auth::id())
+                                       <a href="javascript:void(0)" class="btn btn-info sm Btn_update"
+                                        title="Modifier pharmacie" data-url="{{ route('pharmacie.edit', $pharmacie->id) }}">
                                         <i class="fas fa-edit"></i> </a>
 
-                                    <button data-url = "{{ route('pharmacie.delete', $garde->id) }}"
+                                    <button data-url = "{{ route('pharmacie.delete', $pharmacie->id) }}"
                                         class="btn_delete btn btn-danger sm" title="Supprimer cette pharmacie"
                                         id="delete">
-                                        <i class="fas fa-trash"></i> </button>
+                                        <i class="fas fa-trash"></i> </button> 
+                                    @endif
+
+                                    
 
 
                                 </td>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Gardes;
 use App\Models\Pharmacies;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GardeController extends Controller
 {
@@ -13,8 +14,15 @@ class GardeController extends Controller
      */
     public function index()
     {
+        $role = Auth::user()->role;
         $data = Gardes::all();
-        $pharmacies = Pharmacies::all();
+        if ($role === 'pharmacien') {
+            $pharmacies = Pharmacies::where('id',Auth::id())->get();
+           // $pharmacies = Pharmacies::where('id', Auth::user()->pharmacie_id)->first();
+
+        } else {
+            $pharmacies = Pharmacies::all();
+        }
         return view('gardes.index', compact('data', 'pharmacies'));
     }
 
@@ -46,22 +54,22 @@ class GardeController extends Controller
                 'date_fin.after' => 'La date de fin doit être postérieure à la date de début.',
             ]
         );
-    
+
         // Vérification du chevauchement avec d'autres gardes
         $chevauchement = Gardes::where('pharmacie_id', $request->pharmacie)
             ->where(function ($query) use ($request) {
                 $query->whereBetween('date_debut', [$request->date_debut, $request->date_fin])
-                      ->orWhereBetween('date_fin', [$request->date_debut, $request->date_fin])
-                      ->orWhere(function ($query) use ($request) {
-                          $query->where('date_debut', '<=', $request->date_debut)
-                                ->where('date_fin', '>=', $request->date_fin);
-                      });
+                    ->orWhereBetween('date_fin', [$request->date_debut, $request->date_fin])
+                    ->orWhere(function ($query) use ($request) {
+                        $query->where('date_debut', '<=', $request->date_debut)
+                            ->where('date_fin', '>=', $request->date_fin);
+                    });
             })->exists();
-    
+
         if ($chevauchement) {
             return response()->json(['message' => 'Une autre garde existe déjà sur cette période.'], 422);
         }
-    
+
         // Création de la garde
         $data = new Gardes();
         $data->pharmacie_id = $request->pharmacie;
@@ -69,10 +77,10 @@ class GardeController extends Controller
         $data->date_fin = $request->date_fin;
         $data->type = $request->type;
         $data->save();
-    
+
         return response()->json(['message' => 'Ajout avec succès']);
     }
-    
+
 
     /**
      * Display the specified resource.

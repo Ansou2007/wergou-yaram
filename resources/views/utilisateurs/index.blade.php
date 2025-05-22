@@ -1,9 +1,9 @@
 @extends('layouts.master')
 @section('titre1')
-    Gardes
+    Utilisateur
 @endsection
 @section('titre2')
-    Gardes
+    Utilisateur
 @endsection
 @section('contenu')
     <div class="row">
@@ -14,27 +14,26 @@
                     <button class="btn btn-success Btn_ajouter btn-rounded waves-effect waves-light" style="float:right;"><i
                             class="fas fa-plus-circle"></i></button>
                     <br> <br>
-                    <h4 class="card-title">Toutes les gardes</h4>
+                    <h4 class="card-title">Tous les utilisateurs</h4>
                     <x-table>
                         {{-- Header --}}
-                        <x-table-header :colonnes="['N°', 'Pharmacies', 'Ville', 'Date Debut', 'Date Fin', 'Actions']" />
-                        @foreach ($data as $garde)
+                        <x-table-header :colonnes="['N°', 'Nom','Email', 'Role', 'Telephone', 'Actions']" />
+                        @foreach ($data as $utilisateur)
                             <tr>
                                 <td> {{ $loop->iteration }} </td>
-                                <td> {{ $garde->pharmacies->nom }} </td>
-                                <td> {{ $garde->pharmacies->villes->nom }} </td>
-                                <td class="text-center"> {{carbon\carbon::parse($garde->date_debut)->format('d-m-Y') }} </td>
-                                <td class="text-center"> {{ carbon\carbon::parse($garde->date_fin)->format('d-m-Y') }} </td>
+                                <td> {{ $utilisateur->name }} </td>
+                                <td> {{ $utilisateur->email }} </td>
+                                <td> {{ $utilisateur->role }} </td>
+                                <td> {{ $utilisateur->telephone }} </td>
                                 <td>
-                                    @if ($garde->pharmacies->id == Auth::id())
-                                       <a href="javascript:void(0)" class="btn btn-info sm Btn_update" title="Modifier ce client"
-                                        data-url="{{ route('garde.edit', $garde->id) }}">
-                                        <i class="fas fa-edit"></i> </a> 
-                                      <button data-url = "{{ route('garde.delete', $garde->id) }}"
-                                        class="btn_delete btn btn-danger sm" title="Supprimer cette garde" id="delete">
-                                        <i class="fas fa-trash"></i> </button>   
+                                    <a href="javascript:void(0)" class="btn btn-info sm Btn_update" title="Modifier"
+                                        data-url="{{ route('utilisateur.edit', $utilisateur->id) }}">
+                                        <i class="fas fa-edit"></i> </a>
 
-                                    @endif
+                                    <button data-url = "{{ route('utilisateur.delete', $utilisateur->id) }}"
+                                        class="btn_delete btn btn-danger sm" title="Supprimer" id="delete">
+                                        <i class="fas fa-trash"></i> </button>
+
 
                                 </td>
                             </tr>
@@ -42,8 +41,8 @@
                         </tbody>
                     </x-table>
                 </div>
-                @include('gardes.modal-create')
-                @include('gardes.modal-edit')
+                @include('utilisateurs.modal-create')
+                @include('utilisateurs.modal-edit')
             </div>
         </div>
     </div>
@@ -60,7 +59,7 @@
                 var link = $(this).attr("data-url");
                 Swal.fire({
                     title: 'Confirmation',
-                    text: "Voulez-vous supprimer la garde ?",
+                    text: "Voulez-vous supprimer ?",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -82,49 +81,34 @@
             // Modal Client
             $('.Btn_ajouter').on('click', function(e) {
                 e.preventDefault();
-                let modal = new bootstrap.Modal(document.getElementById('ModalGarde'))
+                let modal = new bootstrap.Modal(document.getElementById('ModalUtilisateur'))
                 modal.show()
             })
 
             // Submit
-            $('#Form_garde').on('submit', function(e) {
+            $('#Form_utilisateur').on('submit', function(e) {
                 e.preventDefault()
-                let pharmacie = $('#pharmacie').val();
-                let date_debut = new Date($('#date_debut').val());
-                let date_fin = new Date($('#date_fin').val());
-                let type = $('#type').val();
-                if (pharmacie == '') {
-                    $.notify('Pharmacie obligatoire', {
+                let nom = $('#nom').val();
+                let telephone = $('#telephone').val();
+                let role = $('#role').val();
+
+                if (nom == '') {
+                    $.notify('Nom Obligatoire', {
                         globalPosition: 'top right',
                         className: 'error'
                     })
                     return false;
                 }
-                if (!date_debut || isNaN(date_debut)) {
-                    $.notify('Date début obligatoire', {
+                if (telephone == '') {
+                    $.notify('Telephone Obligatoire', {
                         globalPosition: 'top right',
                         className: 'error'
-                    });
+                    })
                     return false;
                 }
-
-                if (!date_fin || isNaN(date_fin)) {
-                    $.notify('Date fin obligatoire', {
-                        globalPosition: 'top right',
-                        className: 'error'
-                    });
-                    return false;
-                }
-
-                if (date_fin <= date_debut) {
-                    $.notify('La date de fin doit être postérieure à la date de début', {
-                        globalPosition: 'top right',
-                        className: 'error'
-                    });
-                    return false;
-                }
-                if (type == '') {
-                    $.notify('Type Obligatoire', {
+               
+                if (role == '') {
+                    $.notify('Role Obligatoire', {
                         globalPosition: 'top right',
                         className: 'error'
                     })
@@ -133,12 +117,12 @@
                 let data = $(this).serialize();
                 // console.log(data)
                 $.ajax({
-                    url: "{{ route('garde.store') }}",
+                    url: "{{ route('utilisateur.store') }}",
                     method: 'POST',
                     data: data,
                     success: function(data) {
                         Swal.fire({
-                            title: 'Gardes',
+                            title: 'Utilisateur',
                             icon: 'success',
                             text: data.message
                         }).then(() => {
@@ -148,7 +132,7 @@
                     error: function(xhr) {
 
                         Swal.fire({
-                            title: 'Garde',
+                            title: 'Utilisateur',
                             icon: 'error',
                             text: 'Erreur: ' + xhr.responseJSON['message']
                         })
@@ -164,12 +148,13 @@
                     method: "GET",
                     success: function(response) {
                         //console.log(response)
-                        $('.garde_id').val(response.id);
-                        $('.pharmacie').val(response.pharmacie_id);
-                        $('.date_fin').val(response.date_fin);
-                        $('.date_debut').val(response.date_debut);
+                        $('.utilisateur_id').val(response.id);
+                        $('.nom').val(response.name);
+                        $('.email').val(response.email);
+                        $('.telephone').val(response.telephone);
+                        $('.role').val(response.role);
                         let modal = new bootstrap.Modal(document.getElementById(
-                            'ModalGardeEdition'))
+                            'ModalUtilisateurEdition'))
                         modal.show();
                     },
                     error: function(xhr) {
@@ -179,46 +164,48 @@
 
             })
             // Submit update
-            $(document).on('submit', '#Form_garde_edition', function(e) {
-                e.preventDefault();
-                let garde_id = $('.garde_id').val();
-                let pharmacie = $('.pharmacie').val();
-                let date_debut = new Date($('.date_debut').val());
-                let date_fin = new Date($('.date_fin').val());
-                if (pharmacie == '') {
-                    $.notify('Pharmacie obligatoire', {
+            $(document).on('submit', '#Form_utilisateur_edition', function(e) {
+                  e.preventDefault()
+                let nom = $('.nom').val();
+                let email = $('.email').val();
+                let telephone = $('.telephone').val();
+                let role = $('.role').val();
+
+                if (nom == '') {
+                    $.notify('Nom Obligatoire', {
                         globalPosition: 'top right',
                         className: 'error'
                     })
                     return false;
                 }
-                if (!date_debut || isNaN(date_debut)) {
-                    $.notify('Date début obligatoire', {
+
+                if (email == '') {
+                    $.notify('Email Obligatoire', {
                         globalPosition: 'top right',
                         className: 'error'
-                    });
+                    })
                     return false;
                 }
-
-                if (!date_fin || isNaN(date_fin)) {
-                    $.notify('Date fin obligatoire', {
+                
+                if (telephone == '') {
+                    $.notify('Telephone Obligatoire', {
                         globalPosition: 'top right',
                         className: 'error'
-                    });
+                    })
                     return false;
                 }
-
-                if (date_fin <= date_debut) {
-                    $.notify('La date de fin doit être postérieure à la date de début', {
+               
+                if (role == '') {
+                    $.notify('Role Obligatoire', {
                         globalPosition: 'top right',
                         className: 'error'
-                    });
+                    })
                     return false;
                 }
                 let data = $(this).serialize();
 
                 $.ajax({
-                    url: "{{ route('garde.update') }}",
+                    url: "{{ route('utilisateur.update') }}",
                     method: 'PUT',
                     data: data,
                     success: function(data) {

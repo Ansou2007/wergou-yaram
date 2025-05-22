@@ -152,4 +152,13 @@ class PharmacieController extends Controller
     {
 
     }
+
+    // Recherche Pharmacie Editer
+
+   public function check()
+{
+    $pharmacie = Pharmacies::where('id', Auth::id())->exists();
+    return response()->json($pharmacie); // true ou false
+}
+
 }

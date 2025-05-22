@@ -13,7 +13,7 @@ Tableau de Bord
                 <div class="d-flex">
                     <div class="flex-grow-1">
                         <p class="text-truncate font-size-14 mb-2">Nbre Gardes</p>
-                        <h4 class="mb-2">00</h4>
+                        <h4 class="mb-2">{{$gardes}}</h4>
                         <a href="#"><i class="fas fa-eye"></i>&nbspVoir</a>
                     </div>
                     <div class="avatar-sm">
@@ -32,7 +32,7 @@ Tableau de Bord
                 <div class="d-flex">
                     <div class="flex-grow-1">
                         <p class="text-truncate font-size-14 mb-2">Nbre Pharmacie</p>
-                        <h4 class="mb-2">00</h4>
+                        <h4 class="mb-2">{{$pharmacies}}</h4>
                         <a href="#"><i class="fas fa-eye"></i>&nbspVoir</a>
                     </div>
                     <div class="avatar-sm">
@@ -63,11 +63,30 @@ Tableau de Bord
             </div>
         </div>
     </div>
-
-   
-
 </div>
-@endsection
- 
+<script>
+    $(document).ready(function(){
+        $.ajax({
+            url: "{{ route('pharmacie.check') }}",
+            method: "GET",
+            success: function(data) {
+                console.log(data);
+                if (!data) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Attention',
+                        text: 'Veuillez éditer votre pharmacie avant de procéder à la garde.'
+                    }).then(() => {
+                        window.location.href = "{{ route('pharmacie') }}";
+                    });
+                }
+            },
+            error: function(xhr) {
+                console.error(xhr);
+                alert("Une erreur s'est produite lors de la vérification.");
+            }
+        });
+    });
+</script>
 
- 
+@endsection

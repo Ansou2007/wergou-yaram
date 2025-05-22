@@ -69,34 +69,9 @@
 
             </div>
 
-            <div class="dropdown d-none d-lg-inline-block ms-1">
-                <button type="button" class="btn header-item noti-icon waves-effect" data-bs-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    <i class="ri-apps-2-line"></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-                    <div class="px-lg-2">
-                        <div class="row g-0">
-                            <div class="col">
-                                <a class="dropdown-icon-item" href="{{-- {{route('pos')}} --}}">
-                                    <img src="{{asset('upload/pos.jpeg')}}" alt="POS">
-                                    <span>POS</span>
-                                </a>
-                            </div>
+            
 
-
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="dropdown d-none d-lg-inline-block ms-1">
-                <button type="button" class="btn header-item noti-icon waves-effect" data-toggle="fullscreen">
-                    <i class="ri-fullscreen-line"></i>
-                </button>
-            </div>
+           
 
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item noti-icon waves-effect"
@@ -161,10 +136,10 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
                     <!-- item-->
-                    <a class="dropdown-item" href="{{-- {{route('profil',auth()->user()->id)}} --}}"><i
+                    <a class="dropdown-item" href="{{route('profil',auth()->user()->id)}}"><i
                             class="ri-user-line align-middle me-1"></i>
                         Profil</a>
-                    <a class="dropdown-item d-block" href="{{-- {{route('password.edit',auth()->user()->id)}} --}}"><span
+                    <a class="dropdown-item d-block" href="{{route('password.edit',auth()->user()->id)}}"><span
                             class="ri-password-2-line align-middle me-1"></i>
                             Mot de Passe</a>
 

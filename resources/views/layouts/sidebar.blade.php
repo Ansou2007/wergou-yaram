@@ -29,7 +29,7 @@
                 {{-- Gardes --}}
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="fas fa-user-tag"></i>
+                        <i class="fas fa-calendar"></i>
                         <span>Mes gardes</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
@@ -41,7 +41,7 @@
                 {{-- Pharmacies --}}
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="fas fa-users"></i>
+                        <i class="fas fa-building"></i>
                         <span>Pharmacies</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
@@ -54,7 +54,7 @@
                 {{-- Ajustement --}}
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="fas fa-truck"></i>
+                        <i class="fas fa-info"></i>
                         <span>Notifications</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
@@ -75,7 +75,7 @@
                         <span>Utilisateur</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#{{-- {{route('utilisateur.all')}} --}}">Liste des Utilisateurs</a></li>
+                        <li><a href="{{route('utilisateur')}}">Liste des Utilisateurs</a></li>
                         <li><a href="#{{-- {{route('role.all')}} --}}">Roles</a></li>
                     </ul>
                 </li>
@@ -97,7 +97,7 @@
                         <h4 class="mb-sm-0">@yield('titre1')</h4>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">Stock</a></li>
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Wergou Yaram</a></li>
                                 <li class="breadcrumb-item active">@yield('titre2')</li>
                             </ol>
                         </div>
