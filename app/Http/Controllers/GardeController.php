@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Gardes;
 use App\Models\Pharmacies;
+use App\Models\User;
+use App\Notifications\GardeNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -77,7 +79,9 @@ class GardeController extends Controller
         $data->date_fin = $request->date_fin;
         $data->type = $request->type;
         $data->save();
-
+         // Notification
+         $user = User::find(Auth::id());
+         $user->notify(new GardeNotification());
         return response()->json(['message' => 'Ajout avec succès']);
     }
 

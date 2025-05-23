@@ -5,7 +5,7 @@
         <!-- User details -->
         <div class="user-profile text-center mt-3">
             <div class="">
-                <img src="{{asset(auth()->user()->photo)}}" alt="" class="avatar-md rounded-circle">
+                <img src="#" alt="" class="avatar-md rounded-circle">
             </div>
             <div class="mt-3">
                 <h4 class="font-size-16 mb-1">{{auth()->user()->prenom}}</h4>
@@ -58,12 +58,9 @@
                         <span>Notifications</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#">Liste</a></li>
+                        <li><a href="{{ route('notification') }}">Liste</a></li>
                     </ul>
-                </li>
-
-
-               
+                </li>               
                 <hr>
                
                 {{-- Utilisateur --}}
@@ -76,7 +73,6 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{route('utilisateur')}}">Liste des Utilisateurs</a></li>
-                        <li><a href="#{{-- {{route('role.all')}} --}}">Roles</a></li>
                     </ul>
                 </li>
             </ul>

@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\GardeController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PharmacieController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\utilisateur;
 use App\Http\Controllers\UtilisateurController;
 use App\Models\Gardes;
+use App\Models\Notifications;
 use App\Models\Pharmacies;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +22,8 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     $pharmacies = Pharmacies::count();
     $gardes = Gardes::count();
-    return view('dashboard',compact('pharmacies','gardes'));
+    $notifications = Notifications::count();
+    return view('dashboard',compact('pharmacies','gardes','notifications'));
 })->middleware(['auth'])->name('dashboard');
 
 // Gardes
@@ -60,6 +63,13 @@ Route::controller(GardeController::class)->group(function(){
         Route::put('profil/edit', 'update')->name('profil.update');
         Route::get('password', 'change_password')->name('password.edit');
         Route::put('password', 'update_password')->name('password.update');
+    });
+
+    // Notification
+    Route::controller(NotificationController::class)->group(function(){
+
+        Route::get('notification','index')->name('notification');
+
     });
 
 });
