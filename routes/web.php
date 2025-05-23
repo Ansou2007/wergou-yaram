@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\VilleController;
 use App\Http\Controllers\GardeController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PharmacieController;
 use App\Http\Controllers\ProfilController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\utilisateur;
 use App\Http\Controllers\UtilisateurController;
 use App\Models\Gardes;
@@ -23,60 +23,67 @@ Route::get('/dashboard', function () {
     $pharmacies = Pharmacies::count();
     $gardes = Gardes::count();
     $notifications = Notifications::count();
-    return view('dashboard',compact('pharmacies','gardes','notifications'));
+    return view('dashboard', compact('pharmacies', 'gardes', 'notifications'));
 })->middleware(['auth'])->name('dashboard');
 
 // Gardes
 Route::middleware('auth')
-->group(function(){
+    ->group(function () {
 
-    // Garde
-Route::controller(GardeController::class)->group(function(){
-    Route::get('/gardes','index')->name('gardes');
-    Route::post('/gardes','store')->name('garde.store');
-    Route::get('/garde/{id}/edit','edit')->name('garde.edit');
-    Route::put('/garde/update','update')->name('garde.update');
-    Route::get('/garde/{id}/delete','destroy')->name('garde.delete');
-});
-    // Pharmacie
-    Route::controller(PharmacieController::class)->group(function(){
-        Route::get('/pharmacies','index')->name('pharmacie');
-        Route::post('/pharmacie','store')->name('pharmacie.store');
-        Route::get('/pharmacie/{id}/show','show')->name('pharmacie.show');
-        Route::get('/pharmacie/{id}/edit','edit')->name('pharmacie.edit');
-        Route::put('/pharmacie/update','update')->name('pharmacie.update');
-        Route::get('/pharmacie/{id}/delete','destroy')->name('pharmacie.delete');
-        Route::get('/pharmacie/check','check')->name('pharmacie.check');
+        // Ville
+        Route::controller(VilleController::class)->group(function () {
+            Route::get('/villes', 'index')->name('villes');
+            Route::post('/villes', 'store')->name('ville.store');
+            Route::get('/ville/{id}/edit', 'edit')->name('ville.edit');
+            Route::put('/ville/update', 'update')->name('ville.update');
+            Route::get('/ville/{id}/delete', 'destroy')->name('ville.delete');
+
+        });
+        // Garde
+        Route::controller(GardeController::class)->group(function () {
+            Route::get('/gardes', 'index')->name('gardes');
+            Route::post('/gardes', 'store')->name('garde.store');
+            Route::get('/garde/{id}/edit', 'edit')->name('garde.edit');
+            Route::put('/garde/update', 'update')->name('garde.update');
+            Route::get('/garde/{id}/delete', 'destroy')->name('garde.delete');
+        });
+        // Pharmacie
+        Route::controller(PharmacieController::class)->group(function () {
+            Route::get('/pharmacies', 'index')->name('pharmacie');
+            Route::post('/pharmacie', 'store')->name('pharmacie.store');
+            Route::get('/pharmacie/{id}/show', 'show')->name('pharmacie.show');
+            Route::get('/pharmacie/{id}/edit', 'edit')->name('pharmacie.edit');
+            Route::put('/pharmacie/update', 'update')->name('pharmacie.update');
+            Route::get('/pharmacie/{id}/delete', 'destroy')->name('pharmacie.delete');
+            Route::get('/pharmacie/check', 'check')->name('pharmacie.check');
+        });
+
+        // Utilisateur
+        Route::controller(UtilisateurController::class)->group(function () {
+            Route::get('utilisateurs', 'index')->name('utilisateur');
+            Route::post('utilisateur/store', 'store')->name('utilisateur.store');
+            Route::get('utilisateur/{id}/edit', 'edit')->name('utilisateur.edit');
+            Route::put('utilisateur/update', 'update')->name('utilisateur.update');
+            Route::get('utilisateur/{}/delete', 'destroy')->name('utilisateur.delete');
+        });
+
+        Route::controller(ProfilController::class)->group(function () {
+            Route::get('profil', 'edit')->name('profil');
+            Route::put('profil/edit', 'update')->name('profil.update');
+            Route::get('password', 'change_password')->name('password.edit');
+            Route::put('password', 'update_password')->name('password.update');
+        });
+
+        // Notification
+        Route::controller(NotificationController::class)->group(function () {
+
+            Route::get('notification', 'index')->name('notification');
+        });
     });
-
-    // Utilisateur
-   Route::controller(UtilisateurController::class)->group(function(){
-    Route::get('utilisateurs','index')->name('utilisateur');
-    Route::post('utilisateur/store','store')->name('utilisateur.store');
-    Route::get('utilisateur/{id}/edit','edit')->name('utilisateur.edit');
-    Route::put('utilisateur/update','update')->name('utilisateur.update');
-    Route::get('utilisateur/{}/delete','destroy')->name('utilisateur.delete');
-   });
-
-     Route::controller(ProfilController::class)->group(function () {
-        Route::get('profil', 'edit')->name('profil');
-        Route::put('profil/edit', 'update')->name('profil.update');
-        Route::get('password', 'change_password')->name('password.edit');
-        Route::put('password', 'update_password')->name('password.update');
-    });
-
-    // Notification
-    Route::controller(NotificationController::class)->group(function(){
-
-        Route::get('notification','index')->name('notification');
-
-    });
-
-});
 /* Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 }); */
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

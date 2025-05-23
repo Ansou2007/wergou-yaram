@@ -51,7 +51,7 @@ Tableau de Bord
                 <div class="d-flex">
                     <div class="flex-grow-1">
                         <p class="text-truncate font-size-14 mb-2">Nbre Notification</p>
-                        <h4 class="mb-2">0</h4>
+                        <h4 class="mb-2">{{$notifications}}</h4>
                         <a href="#"><i class="fas fa-eye"></i>&nbspVoir</a>
                     </div>
                     <div class="avatar-sm">
