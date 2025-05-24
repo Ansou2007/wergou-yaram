@@ -143,9 +143,10 @@ class PharmacieController extends Controller
     }
 
     // Carte
-    public function map()
+    public function carte()
     {
-
+        $data = Pharmacies::all();
+        return view('pharmacies.carte.map',compact('data'));
     }
 
     public function maps()

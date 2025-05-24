@@ -57,6 +57,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{route('pharmacie')}}">Liste Pharmacies</a></li>
+                        <li><a href="{{route('pharmacie.carte')}}">carte</a></li>
                         
                     </ul>
                 </li>

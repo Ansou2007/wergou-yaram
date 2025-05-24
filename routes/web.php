@@ -56,6 +56,7 @@ Route::middleware('auth')
             Route::put('/pharmacie/update', 'update')->name('pharmacie.update');
             Route::get('/pharmacie/{id}/delete', 'destroy')->name('pharmacie.delete');
             Route::get('/pharmacie/check', 'check')->name('pharmacie.check');
+            Route::get('/pharmacie/carte', 'carte')->name('pharmacie.carte');
         });
 
         // Utilisateur
