@@ -14,11 +14,11 @@ Tableau de Bord
                     <div class="flex-grow-1">
                         <p class="text-truncate font-size-14 mb-2">Nbre Gardes</p>
                         <h4 class="mb-2">{{$gardes}}</h4>
-                        <a href="#"><i class="fas fa-eye"></i>&nbspVoir</a>
+                        <a href="{{ route('gardes') }}"><i class="fas fa-eye"></i>&nbspVoir</a>
                     </div>
                     <div class="avatar-sm">
                         <span class="avatar-title bg-light text-primary rounded-3">
-                            <i class="ri-shopping-cart-2-line font-size-24"></i>
+                            <i class="ri-calendar-2-line font-size-24"></i>
                         </span>
                     </div>
                 </div>
@@ -33,7 +33,7 @@ Tableau de Bord
                     <div class="flex-grow-1">
                         <p class="text-truncate font-size-14 mb-2">Nbre Pharmacie</p>
                         <h4 class="mb-2">{{$pharmacies}}</h4>
-                        <a href="#"><i class="fas fa-eye"></i>&nbspVoir</a>
+                        <a href="{{ route('pharmacie') }}"><i class="fas fa-eye"></i>&nbspVoir</a>
                     </div>
                     <div class="avatar-sm">
                         <span class="avatar-title bg-light text-success rounded-3">
@@ -52,7 +52,7 @@ Tableau de Bord
                     <div class="flex-grow-1">
                         <p class="text-truncate font-size-14 mb-2">Nbre Notification</p>
                         <h4 class="mb-2">{{$notifications}}</h4>
-                        <a href="#"><i class="fas fa-eye"></i>&nbspVoir</a>
+                        <a href="{{ route('notification') }}"><i class="fas fa-eye"></i>&nbspVoir</a>
                     </div>
                     <div class="avatar-sm">
                         <span class="avatar-title bg-light text-primary rounded-3">

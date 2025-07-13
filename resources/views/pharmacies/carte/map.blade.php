@@ -23,11 +23,11 @@ Pharmacie
     </div>
 </div>
 {{-- Modal --}}
-<div class="modal fade" id="motosModal" tabindex="-1" aria-labelledby="motosModalLabel" aria-hidden="true">
+<div class="modal fade" id="PharmacieModal" tabindex="-1" aria-labelledby="motosModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="motosModalLabel">Liste des Pharmacies</h5>
+                <h5 class="modal-title" id="motosModalLabel">Infos Pharmacies</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -72,11 +72,12 @@ Pharmacie
                         var li = document.createElement('li');
                         li.className = 'list-group-item';
                         li.textContent = pharmacie['nom'];
+                 
                         pharmacieList.appendChild(li);
                     });
                 }
 
-                $('#motosModal').modal('show');
+                $('#PharmacieModal').modal('show');
             });
         });
 
